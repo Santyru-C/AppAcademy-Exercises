@@ -41,7 +41,7 @@ def dupe_indices(arr)
     dupes
 end
 
-def ana_array(arr_1, arr_2) #work in progress
+def ana_array(arr_1, arr_2)
 
     if arr_1.length != arr_2.length
         return false
