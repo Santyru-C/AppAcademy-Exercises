@@ -43,8 +43,11 @@ end
 
 def ana_array(arr_1, arr_2) #work in progress
 
+    if arr_1.length != arr_2.length
+        return false
+    end
+    
     arr_1.each do |ele|
-        p !arr_2.include?(ele)
         if !arr_2.include?(ele)
             return false
         else
