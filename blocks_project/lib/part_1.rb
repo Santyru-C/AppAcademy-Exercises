@@ -23,6 +23,6 @@ def aba_translate(str)
     new_s
 end
 
-def aba_array(arr) # Work in progress
+def aba_array(arr)
     arr.map {|e| aba_translate(e)}
 end
