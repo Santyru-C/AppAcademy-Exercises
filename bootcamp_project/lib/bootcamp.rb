@@ -41,5 +41,30 @@ class Bootcamp
         @students.include?(student)
     end
 
-    #word in progress
+    def student_to_teacher_ratio
+        @students.size / @teachers.size
+    end
+
+    def add_grade(stdnt, grd)
+        if enrolled?(stdnt)
+            @grades[stdnt] << grd
+            return true
+        else
+            return false
+        end
+    end
+
+    def num_grades(stdnt)
+        @grades[stdnt].size
+    end
+
+    def average_grade(stdnt)
+        grades = @grades[stdnt]
+        if !enrolled?(stdnt) or grades.size == 0
+            return nil
+        else
+            grades.sum / grades.size
+        end
+    end
+
 end
