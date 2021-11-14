@@ -1,5 +1,5 @@
 class Hangman
-  DICTIONARY = ["hola", "amigo", "bienvenido", "spanish"]
+  DICTIONARY = ["hola", "amigo", "bootcamp", "spanish"]
   
   def self.random_word
     DICTIONARY.sample
@@ -47,6 +47,53 @@ class Hangman
   def fill_indices(char, arr)
     arr.each {|i| @guess_word[i] = char}
     @secret_word
+  end
+
+  def try_guess(char)
+    if self.already_attempted?(char)
+      print "that has already been atempted"
+      return false
+    else
+      @attempted_chars << char
+      matching_indices = self.get_matching_indices(char)
+      if matching_indices.size == 0
+        @remaining_incorrect_guesses -= 1
+      else
+        self.fill_indices(char, matching_indices)
+      end
+      return true
+      
+    end
+  end
+
+  def ask_user_for_guess
+    print "Enter a char: "
+    char = gets.chomp
+    self.try_guess(char)
+  end
+
+  def win?
+    return false if @guess_word.join("") != @secret_word
+    print "WIN"
+    return true
+  end
+
+  def lose?
+    if @remaining_incorrect_guesses == 0
+      print "LOSE"
+      return true
+    else
+      return false
+    end
+  end
+
+  def game_over?
+    if win? or lose?
+      print @secret_word
+      return true
+    else
+      return false
+    end
   end
 
 end
