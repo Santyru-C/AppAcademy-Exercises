@@ -30,9 +30,20 @@ class Hotel
             p "sorry, room is full"
         end
     end
+  end
 
   def has_vacancy?
-    @rooms.values.all?
+    if @rooms.values.all? {|room| room.full?}
+      return false
+    else
+      return true
+    end
+  end
+
+  def list_rooms
+    @rooms.each_pair do |k, v|
+      puts k + v.available_space.to_s
+    end
   end
 
 end
