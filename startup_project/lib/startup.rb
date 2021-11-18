@@ -45,6 +45,26 @@ class Startup
     end
 
     def average_salary
-        @employees.inject {|a, e| a + @salaries[e.title]} / @employees.size
+        accumulator = 0
+        @employees.each {|e| accumulator += @salaries[e.title]}
+        accumulator / @employees.size
+    end
+
+    def close
+        @employees.clear
+        @funding = 0
+    end
+
+    def acquire(other_startup)
+
+        @funding += other_startup.funding
+        @employees += other_startup.employees
+
+        other_startup.salaries.each_pair do |title, wage|
+            @salaries[title] = wage if !@salaries.has_key?(title)
+        end
+
+        other_startup.close
+
     end
 end
