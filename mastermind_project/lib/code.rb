@@ -48,13 +48,28 @@ class Code
 
   def num_near_matches(guess)
     count = 0
+    temp_guess = []
+    temp_pegs = []
 
-    (0...guess.pegs.size).each do |i|
-     count += 1 if guess[i] != @pegs[i] and @pegs.include?(guess[i])
+    (0...guess.length).each do |i|
+      if guess[i] != @pegs[i]
+        temp_guess << guess[i]
+        temp_pegs << @pegs[i]
+      end
     end
-    # work in progress
-    count
     
+    (0...guess.length).each do |i|
+      if temp_pegs.include?(temp_guess[i])
+        count += 1
+        temp_pegs.delete(temp_guess[i])
+      end
+    end
+    count
+  end
+
+  def ==(guess)
+    return true if guess.pegs == @pegs
+    return false 
   end
 
 end
