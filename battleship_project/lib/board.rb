@@ -32,12 +32,12 @@ class Board
   def place_random_ships
     n = @size/2.0
 
-    while num_ships < n/2.0 do # mejor que sea un while loop que se detenga cuando un cuarto del contenido de la grilla sean barcos
-        pos = [rand(n), rand(n)]
-        puts pos
-        if self[pos] != :S
-            self[pos] = :S
-        end
+    while self.num_ships < n/2.0 do # mejor que sea un while loop que se detenga cuando un cuarto del contenido de la grilla sean barcos
+      pos = [rand(n), rand(n)]
+      p pos
+      if self[pos] != :S
+        puts :S
+      end
     end
   end
         
