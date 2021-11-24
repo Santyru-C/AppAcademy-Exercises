@@ -30,16 +30,39 @@ class Board
   end
 
   def place_random_ships
-    n = @size/2.0
+    total_ships = @size * 0.25
 
-    while self.num_ships < n/2.0 do # mejor que sea un while loop que se detenga cuando un cuarto del contenido de la grilla sean barcos
-      pos = [rand(n), rand(n)]
-      p pos
-      if self[pos] != :S
-        puts :S
+    while self.num_ships < total_ships
+      rand_row = rand(0...@grid.length)
+      rand_col = rand(0...@grid.length)
+      pos = [rand_row, rand_col]
+      self[pos] = :S
+    end
+  end
+
+  def hidden_ships_grid
+    @grid.map do |row|
+      row.map do |element|
+        if element == :S
+          element = :N 
+        else
+          element
+        end
       end
     end
   end
         
- 
+  def self.print_grid(grid)
+    grid.each do |row|
+      puts row.join(" ")
+    end
+  end
+  
+  def cheat
+    Board.print_grid(@grid)
+  end
+
+  def print
+    Board.print_grid(self.hidden_ships_grid)
+  end
 end
