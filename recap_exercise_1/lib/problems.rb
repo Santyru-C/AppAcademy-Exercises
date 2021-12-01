@@ -6,9 +6,35 @@
 #
 # all_vowel_pairs(["goat", "action", "tear", "impromptu", "tired", "europe"])   # => ["action europe", "tear impromptu"]
 def all_vowel_pairs(words)
-    all_vowels = ""
     vowels = "aeiou"
-    words.each
+    #word_dict = {}
+    word_pairs = []
+    every_vowel_pair = []
+    # generamos un nuevo string con pares de palabras
+    (0...words.size).each do |i|
+        (i+1...words.size).each do |j|
+            word_pairs << words[i] + " " + words[j]
+        end
+    end
+    
+    word_pairs.each do |pair|
+        complete = true
+        vowels.each_char {|vowel| complete = false if !pair.include?(vowel)}
+        every_vowel_pair << pair if complete = true
+    end
+    puts every_vowel_pair
+
+    # # primero tenemos que dejar en claro que vocales componen cada palabra
+    # words.each do |word|
+    #     word_vowels = ""
+    #     vowels.each_char do |char| 
+    #         word_vowels += char if word.include?(char)
+    #     end
+    #     word_dict[word] = word_vowels
+    # end
+    # # luego creamos una pareja de palabras en las cuales la suma de sus vocales nos de el entero del listado de vocales
+    # word_dict.each_pair do |word, 
+    # puts word_dict
 end
 
 
