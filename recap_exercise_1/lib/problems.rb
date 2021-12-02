@@ -1,10 +1,6 @@
 # Write a method, all_vowel_pairs, that takes in an array of words and returns all pairs of words
 # that contain every vowel. Vowels are the letters a, e, i, o, u. A pair should have its two words
-# in the same order as the original array. 
-#
-# Example:
-#
-# all_vowel_pairs(["goat", "action", "tear", "impromptu", "tired", "europe"])   # => ["action europe", "tear impromptu"]
+# in the same order as the original arra
 def all_vowel_pairs(words)
     vowels = "aeiou"
     #word_dict = {}
@@ -20,9 +16,9 @@ def all_vowel_pairs(words)
     word_pairs.each do |pair|
         complete = true
         vowels.each_char {|vowel| complete = false if !pair.include?(vowel)}
-        every_vowel_pair << pair if complete = true
+        every_vowel_pair << pair if complete
     end
-    puts every_vowel_pair
+    every_vowel_pair
 
     # # primero tenemos que dejar en claro que vocales componen cada palabra
     # words.each do |word|
@@ -79,8 +75,11 @@ class Hash
     # hash_2.my_select { |k, v| k + 1 == v }      # => {10=>11, 5=>6, 7=>8})
     # hash_2.my_select                            # => {4=>4}
     def my_select(&prc)
-        prc = prc || Proc.new {|k, v| k == v}
-        prc.call(self)
+        prc ||= Proc.new {|k, v| k == v}
+        new_hash = {}
+
+        self.each {|k, v| new_hash[k] = v if prc.call(k, v)}
+        new_hash
     end
 end
 
@@ -95,10 +94,16 @@ class String
     # "cats".substrings(2)  # => ["ca", "at", "ts"]
     def substrings(length = nil) 
         array = []
+        puts "jey" if length
         (0...self.length).each do |i|
-            array << self[i..i+length-1]
+            (i...self.length).each {|j| array << self[i..j]}
         end
-        array
+        
+        if length
+            return array.select {|e| e.length == length}
+        else
+            return array
+        end
     end
 
 
@@ -112,6 +117,14 @@ class String
     # "bootcamp".caesar_cipher(2) #=> "dqqvecor"
     # "zebra".caesar_cipher(4)    #=> "difve"
     def caesar_cipher(num)
+        new_str = ""
+        alphabet = ("a".."z").to_a
 
+        self.each_char do |c|
+            og_index = alphabet.index(c)
+            new_index = (og_index + num) % 26 # %26 to avoid getting an index greater than 26
+            new_str += alphabet[new_index]
+        end
+        new_str
     end
 end
