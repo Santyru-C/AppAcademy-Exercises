@@ -116,25 +116,89 @@ end
 # puts vigenere_cipher("yawn", [5, 1])             # => "dbbo"
 
 def vowel_rotate(str)
-    # kinda missed the point in this method, must re do
     vowels = "aeiou"
-    new_str = ""
+    v_to_arrange = []
+    idx = 0
+    # kinda missed the point in this method, must re do
+    # str.each_char do |c|
+    #     if vowels.include?(c)
+    #         o_idx = vowels.index(c)
+    #         n_idx = (o_idx - 1) % 5
+    #         new_str += vowels[n_idx]
+    #     else
+    #         new_str += c
+    #     end
+    # end
+    # new_str
+    
+    str.each_char {|c| v_to_arrange << c if vowels.include?(c)}
+    v_rotated = v_to_arrange.unshift(v_to_arrange.pop)
 
-    str.each_char do |c|
+    str.each_char.with_index do |c, i|
         if vowels.include?(c)
-            o_idx = vowels.index(c)
-            n_idx = (o_idx - 1) % 5
-            new_str += vowels[n_idx]
-        else
-            new_str += c
+            str[i] = v_rotated[idx]
+            idx += 1
         end
     end
-    new_str
+    str
+
+
 end
 
 # Examples
-puts vowel_rotate('computer')      # => "cempotur"
-puts vowel_rotate('oranges')       # => "erongas"
-puts vowel_rotate('headphones')    # => "heedphanos"
-puts vowel_rotate('bootcamp')      # => "baotcomp"
-puts vowel_rotate('awesome')       # => "ewasemo"
+# puts vowel_rotate('computer')      # => "cempotur"
+# puts vowel_rotate('oranges')       # => "erongas"
+# puts vowel_rotate('headphones')    # => "heedphanos"
+# puts vowel_rotate('bootcamp')      # => "baotcomp"
+# puts vowel_rotate('awesome')       # => "ewasemo"
+
+# Proc problems
+
+class String
+    def select(&prc)
+        new_str = ""
+        if !prc
+            return new_str
+        else
+            self.each_char do |c|
+                new_str << c if prc.call(c)
+            end
+            return new_str
+        end
+    end
+
+    def map!(&prc)
+        self.each_char.with_index do |c, i|
+            self[i] = prc.call(c, i)
+        end
+    end
+end
+
+# # Examples
+# p "app academy".select { |ch| !"aeiou".include?(ch) }   # => "pp cdmy"
+# p "HELLOworld".select { |ch| ch == ch.upcase }          # => "HELLO"
+# p "HELLOworld".select          # => ""
+
+# Examples
+# word_1 = "Lovelace"
+# word_1.map! do |ch| 
+#     if ch == 'e'
+#         '3'
+#     elsif ch == 'a'
+#         '4'
+#     else
+#         ch
+#     end
+# end
+# p word_1        # => "Lov3l4c3"
+
+# word_2 = "Dijkstra"
+# word_2.map! do |ch, i|
+#     if i.even?
+#         ch.upcase
+#     else
+#         ch.downcase
+#     end
+# end
+# p word_2        # => "DiJkStRa"
+
