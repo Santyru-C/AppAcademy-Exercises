@@ -1,1 +1,4 @@
-# hello there
+class Array
+    def my_each(&prc)
+        
+    end
