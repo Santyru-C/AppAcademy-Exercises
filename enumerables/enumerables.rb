@@ -28,6 +28,21 @@ class Array
         self.my_each{|element| return false if !prc.call(element)}
         true
     end
+
+    def my_flatten
+        #use recursion!
+        return [data] if !data.kind_of?(Array)
+    
+        flat_array = []
+        data.each {|el| flat_array += flatten(el)}
+        flat_array
+    end
+
+    def my_rotate(offset)
+        if offset > 0
+            
+
+    end
 end
 
 a = [1, 2, 3]
